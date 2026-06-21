@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -16,18 +16,19 @@
       theme: {
         extend: {
           fontFamily: {
-            heading: ['Poppins', 'system-ui', 'sans-serif'],
-            sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', 'Inter', '"Segoe UI"', 'sans-serif'],
           },
           colors: {
-            ink: '#0F172A',
-            surface: '#1E293B',
-            surface2: '#334155',
-            brand: '#22C55E',
-            brandDark: '#16A34A',
+            ink: '#1D1D1F',
+            sub: '#6E6E73',
+            canvas: '#F5F5F7',
+            brand: '#15803D',
+            brandLight: '#22C55E',
           },
           boxShadow: {
-            glow: '0 0 40px -10px rgba(34, 197, 94, 0.45)',
+            soft: '0 4px 24px -6px rgba(0,0,0,0.08)',
+            card: '0 1px 3px rgba(0,0,0,0.04), 0 8px 32px -12px rgba(0,0,0,0.12)',
+            lift: '0 12px 40px -10px rgba(0,0,0,0.18)',
           },
         },
       },
@@ -35,160 +36,159 @@
   </script>
 
   <style>
-    body { background-color: #0F172A; }
+    body { background-color: #F5F5F7; color: #1D1D1F; }
     .glass {
-      background: rgba(30, 41, 59, 0.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(248, 250, 252, 0.08);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
-    .glass-hover { transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease; }
-    .glass-hover:hover {
-      border-color: rgba(34, 197, 94, 0.45);
-      background: rgba(30, 41, 59, 0.75);
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
-    .grid-bg {
-      background-image:
-        radial-gradient(60% 50% at 50% 0%, rgba(34,197,94,0.12), transparent 70%),
-        linear-gradient(rgba(248,250,252,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(248,250,252,0.04) 1px, transparent 1px);
-      background-size: 100% 100%, 48px 48px, 48px 48px;
+    .card-hover { transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease; }
+    .card-hover:hover { transform: translateY(-4px); }
+    .hero-glow {
+      background:
+        radial-gradient(50% 40% at 50% 0%, rgba(34,197,94,0.10), transparent 70%),
+        radial-gradient(40% 30% at 85% 10%, rgba(56,189,248,0.10), transparent 70%);
     }
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
     .reveal.in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .card-hover { transition: none !important; }
       .animate-float { animation: none !important; }
     }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    :focus-visible { outline: 2px solid #22C55E; outline-offset: 2px; border-radius: 6px; }
+    .animate-float { animation: float 7s ease-in-out infinite; }
+    :focus-visible { outline: 2px solid #15803D; outline-offset: 3px; border-radius: 8px; }
+    ::selection { background: rgba(34,197,94,0.25); }
   </style>
 </head>
 
-<body class="font-sans text-slate-100 antialiased selection:bg-brand/30">
+<body class="font-sans antialiased">
 
-  <!-- Skip link -->
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-brand focus:text-ink focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold">Skip to content</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-brand focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:font-semibold">Skip to content</a>
 
   <!-- ===== NAVBAR ===== -->
-  <header class="fixed top-4 left-4 right-4 z-50">
-    <nav class="glass max-w-7xl mx-auto rounded-2xl px-5 py-3 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-2.5 font-heading font-extrabold text-lg tracking-tight">
-        <span class="grid place-items-center w-9 h-9 rounded-xl bg-brand text-ink">
-          <span class="font-heading font-extrabold text-sm">MK</span>
-        </span>
+  <header class="fixed top-3 left-3 right-3 z-50">
+    <nav class="glass max-w-6xl mx-auto rounded-full px-5 py-2.5 flex items-center justify-between shadow-soft">
+      <a href="#home" class="flex items-center gap-2.5 font-semibold text-lg tracking-tight">
+        <span class="grid place-items-center w-8 h-8 rounded-xl bg-brand text-white"><span class="font-bold text-xs">MK</span></span>
         Core
       </a>
 
-      <div class="hidden lg:flex items-center gap-8 text-sm text-slate-300">
-        <a href="#services" class="hover:text-white transition-colors">Services</a>
-        <a href="#dashboard" class="hover:text-white transition-colors">Store System</a>
-        <a href="#nfc" class="hover:text-white transition-colors">NFC Cards</a>
-        <a href="#process" class="hover:text-white transition-colors">How it works</a>
-        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+      <div class="hidden lg:flex items-center gap-8 text-sm text-sub font-medium">
+        <a href="#services" class="hover:text-ink transition-colors">Services</a>
+        <a href="#dashboard" class="hover:text-ink transition-colors">Store System</a>
+        <a href="#nfc" class="hover:text-ink transition-colors">NFC Cards</a>
+        <a href="#process" class="hover:text-ink transition-colors">How it works</a>
+        <a href="#pricing" class="hover:text-ink transition-colors">Pricing</a>
       </div>
 
-      <div class="flex items-center gap-3">
-        <a href="#contact" class="hidden sm:inline-flex text-sm text-slate-300 hover:text-white transition-colors px-3 py-2">Log in</a>
-        <a href="#contact" class="inline-flex items-center gap-2 bg-brand hover:bg-brandDark text-ink font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer shadow-glow">
+      <div class="flex items-center gap-2">
+        <a href="#contact" class="hidden sm:inline-flex text-sm text-sub hover:text-ink transition-colors px-3 py-2 font-medium">Log in</a>
+        <a href="#contact" class="inline-flex items-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium text-sm px-4 py-2 rounded-full transition-colors cursor-pointer">
           Contact Sales
         </a>
-        <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="lg:hidden grid place-items-center w-10 h-10 rounded-xl glass glass-hover cursor-pointer">
+        <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="lg:hidden grid place-items-center w-9 h-9 rounded-full glass cursor-pointer text-ink">
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </nav>
 
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="lg:hidden hidden glass max-w-7xl mx-auto rounded-2xl mt-2 p-4 flex-col gap-1 text-slate-200">
-      <a href="#services" class="px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Services</a>
-      <a href="#dashboard" class="px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Store System</a>
-      <a href="#nfc" class="px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">NFC Cards</a>
-      <a href="#process" class="px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">How it works</a>
-      <a href="#pricing" class="px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors">Pricing</a>
+    <div id="mobileMenu" class="lg:hidden hidden glass-strong max-w-6xl mx-auto rounded-3xl mt-2 p-3 flex-col gap-1 text-ink shadow-soft">
+      <a href="#services" class="px-4 py-3 rounded-2xl hover:bg-black/5 transition-colors font-medium">Services</a>
+      <a href="#dashboard" class="px-4 py-3 rounded-2xl hover:bg-black/5 transition-colors font-medium">Store System</a>
+      <a href="#nfc" class="px-4 py-3 rounded-2xl hover:bg-black/5 transition-colors font-medium">NFC Cards</a>
+      <a href="#process" class="px-4 py-3 rounded-2xl hover:bg-black/5 transition-colors font-medium">How it works</a>
+      <a href="#pricing" class="px-4 py-3 rounded-2xl hover:bg-black/5 transition-colors font-medium">Pricing</a>
     </div>
   </header>
 
   <main id="main">
 
     <!-- ===== HERO ===== -->
-    <section id="home" class="grid-bg pt-36 pb-20 px-4">
-      <div class="max-w-7xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-slate-300 mb-6">
-          <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+    <section id="home" class="hero-glow pt-36 pb-20 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-sub mb-7 shadow-soft">
+          <span class="w-1.5 h-1.5 rounded-full bg-brandLight"></span>
           All-in-one business technology partner
         </div>
 
-        <h1 class="font-heading font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.1] max-w-4xl mx-auto">
-          Run your whole business from
-          <span class="text-brand">one smart platform</span>
+        <h1 class="font-semibold tracking-tight text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
+          Run your whole business<br class="hidden sm:block" />
+          from <span class="bg-gradient-to-r from-brand to-brandLight bg-clip-text text-transparent">one smart platform</span>
         </h1>
 
-        <p class="mt-6 text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          We build the systems that keep businesses running — store dashboards that track salaries, inventory, sales, expenses &amp; profit, modern websites and restaurant menus, and NFC bio cards with built-in review analytics.
+        <p class="mt-7 text-lg sm:text-xl text-sub max-w-2xl mx-auto leading-relaxed">
+          Store dashboards that track salaries, inventory, sales, expenses &amp; profit. Modern websites and restaurant menus. NFC bio cards with built-in review analytics.
         </p>
 
-        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-brandDark text-ink font-semibold px-6 py-3.5 rounded-xl transition-colors cursor-pointer shadow-glow">
+        <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer text-[15px]">
             Get a free demo
             <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a href="#services" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 glass glass-hover px-6 py-3.5 rounded-xl font-semibold transition-colors cursor-pointer">
+          <a href="#services" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 glass-strong hover:shadow-soft text-ink px-7 py-3.5 rounded-full font-medium transition-shadow cursor-pointer text-[15px]">
             Explore solutions
           </a>
         </div>
 
         <!-- Hero dashboard mock -->
-        <div class="mt-16 max-w-5xl mx-auto reveal">
-          <div class="glass rounded-3xl p-3 sm:p-4 animate-float shadow-glow">
-            <div class="rounded-2xl bg-ink/80 border border-white/5 overflow-hidden">
-              <div class="flex items-center gap-2 px-4 py-3 border-b border-white/5">
-                <span class="w-3 h-3 rounded-full bg-red-400/70"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-400/70"></span>
-                <span class="w-3 h-3 rounded-full bg-green-400/70"></span>
-                <span class="ml-3 text-xs text-slate-400">MK Core Store Dashboard</span>
+        <div class="mt-16 max-w-4xl mx-auto reveal">
+          <div class="glass-strong rounded-[28px] p-3 shadow-card animate-float">
+            <div class="rounded-3xl bg-white border border-black/5 overflow-hidden">
+              <div class="flex items-center gap-2 px-5 py-3.5 border-b border-black/5">
+                <span class="w-3 h-3 rounded-full bg-[#FF5F57]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#FEBC2E]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#28C840]"></span>
+                <span class="ml-3 text-xs text-sub font-medium">MK Core Store Dashboard</span>
               </div>
               <div class="grid sm:grid-cols-3 gap-3 p-4">
-                <div class="text-left rounded-xl bg-surface/60 p-4 border border-white/5">
-                  <p class="text-xs text-slate-400">Monthly Sales</p>
-                  <p class="font-heading font-bold text-2xl mt-1">$48,250</p>
-                  <p class="text-xs text-brand mt-1">▲ 12.4% vs last month</p>
+                <div class="text-left rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-sub">Monthly Sales</p>
+                  <p class="font-semibold text-2xl mt-1 tracking-tight">$48,250</p>
+                  <p class="text-xs text-brand mt-1 font-medium">▲ 12.4% vs last month</p>
                 </div>
-                <div class="text-left rounded-xl bg-surface/60 p-4 border border-white/5">
-                  <p class="text-xs text-slate-400">Net Profit</p>
-                  <p class="font-heading font-bold text-2xl mt-1">$17,820</p>
-                  <p class="text-xs text-brand mt-1">▲ 8.1% margin up</p>
+                <div class="text-left rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-sub">Net Profit</p>
+                  <p class="font-semibold text-2xl mt-1 tracking-tight">$17,820</p>
+                  <p class="text-xs text-brand mt-1 font-medium">▲ 8.1% margin up</p>
                 </div>
-                <div class="text-left rounded-xl bg-surface/60 p-4 border border-white/5">
-                  <p class="text-xs text-slate-400">Expenses</p>
-                  <p class="font-heading font-bold text-2xl mt-1">$30,430</p>
-                  <p class="text-xs text-slate-400 mt-1">Salaries · Stock · Bills</p>
+                <div class="text-left rounded-2xl bg-canvas p-4">
+                  <p class="text-xs text-sub">Expenses</p>
+                  <p class="font-semibold text-2xl mt-1 tracking-tight">$30,430</p>
+                  <p class="text-xs text-sub mt-1">Salaries · Stock · Bills</p>
                 </div>
-                <div class="sm:col-span-3 rounded-xl bg-surface/60 p-4 border border-white/5">
+                <div class="sm:col-span-3 rounded-2xl bg-canvas p-4">
                   <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs text-slate-400 text-left">Revenue vs Profit — last 6 months</p>
-                    <div class="flex items-center gap-3 text-[10px] text-slate-400">
-                      <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-brand"></span>Revenue</span>
+                    <p class="text-xs text-sub text-left font-medium">Revenue vs Profit — last 6 months</p>
+                    <div class="flex items-center gap-3 text-[10px] text-sub">
+                      <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-brandLight"></span>Revenue</span>
                       <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-sky-400"></span>Profit</span>
                     </div>
                   </div>
                   <svg viewBox="0 0 600 160" class="w-full h-40" role="img" aria-label="Line chart showing revenue and profit trending upward over six months">
                     <defs>
                       <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#22C55E" stop-opacity="0.35"/>
+                        <stop offset="0%" stop-color="#22C55E" stop-opacity="0.25"/>
                         <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
                       </linearGradient>
                     </defs>
-                    <g stroke="rgba(248,250,252,0.06)" stroke-width="1">
+                    <g stroke="rgba(0,0,0,0.06)" stroke-width="1">
                       <line x1="0" y1="40" x2="600" y2="40"/>
                       <line x1="0" y1="80" x2="600" y2="80"/>
                       <line x1="0" y1="120" x2="600" y2="120"/>
                     </g>
                     <path d="M0,120 L120,100 L240,108 L360,70 L480,60 L600,30 L600,160 L0,160 Z" fill="url(#revFill)"/>
                     <path d="M0,120 L120,100 L240,108 L360,70 L480,60 L600,30" fill="none" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M0,140 L120,132 L240,128 L360,112 L480,104 L600,88" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 0"/>
+                    <path d="M0,140 L120,132 L240,128 L360,112 L480,104 L600,88" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
@@ -199,101 +199,97 @@
     </section>
 
     <!-- ===== TRUST BAR ===== -->
-    <section class="px-4 py-12 border-y border-white/5">
-      <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-        <div><p class="font-heading font-bold text-3xl text-brand">120+</p><p class="text-sm text-slate-400 mt-1">Businesses powered</p></div>
-        <div><p class="font-heading font-bold text-3xl text-brand">4</p><p class="text-sm text-slate-400 mt-1">Solutions in one place</p></div>
-        <div><p class="font-heading font-bold text-3xl text-brand">99.9%</p><p class="text-sm text-slate-400 mt-1">Uptime guarantee</p></div>
-        <div><p class="font-heading font-bold text-3xl text-brand">24/7</p><p class="text-sm text-slate-400 mt-1">Support &amp; setup</p></div>
+    <section class="px-4 py-14">
+      <div class="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div><p class="font-semibold text-4xl tracking-tight">120+</p><p class="text-sm text-sub mt-1">Businesses powered</p></div>
+        <div><p class="font-semibold text-4xl tracking-tight">4</p><p class="text-sm text-sub mt-1">Solutions in one place</p></div>
+        <div><p class="font-semibold text-4xl tracking-tight">99.9%</p><p class="text-sm text-sub mt-1">Uptime guarantee</p></div>
+        <div><p class="font-semibold text-4xl tracking-tight">24/7</p><p class="text-sm text-sub mt-1">Support &amp; setup</p></div>
       </div>
     </section>
 
-    <!-- ===== SERVICES ===== -->
-    <section id="services" class="px-4 py-24">
-      <div class="max-w-7xl mx-auto">
+    <!-- ===== SERVICES (Bento) ===== -->
+    <section id="services" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto">
         <div class="max-w-2xl mx-auto text-center reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">What we build</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">Everything your business needs to grow</h2>
-          <p class="text-slate-300 mt-4">Pick one solution or combine them all — designed to work together out of the box.</p>
+          <p class="text-brand font-semibold text-sm">What we build</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">Everything your business needs to grow</h2>
+          <p class="text-sub mt-4 text-lg">Pick one solution or combine them all — designed to work together out of the box.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
-          <!-- Card 1 -->
-          <article class="glass glass-hover rounded-2xl p-6 reveal cursor-pointer">
-            <div class="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand mb-5">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
+          <article class="glass-strong card-hover rounded-3xl p-7 reveal cursor-pointer shadow-card hover:shadow-lift">
+            <div class="grid place-items-center w-12 h-12 rounded-2xl bg-brand/10 text-brand mb-5">
               <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             </div>
-            <h3 class="font-heading font-semibold text-lg">Store &amp; POS Systems</h3>
-            <p class="text-slate-400 text-sm mt-2 leading-relaxed">A full dashboard that calculates salaries, inventory, sales, expenses and real-time profit — automatically.</p>
-            <a href="#dashboard" class="inline-flex items-center gap-1.5 text-brand text-sm font-semibold mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="font-semibold text-lg tracking-tight">Store &amp; POS Systems</h3>
+            <p class="text-sub text-sm mt-2 leading-relaxed">A full dashboard that calculates salaries, inventory, sales, expenses and real-time profit — automatically.</p>
+            <a href="#dashboard" class="inline-flex items-center gap-1.5 text-brand text-sm font-medium mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
-          <!-- Card 2 -->
-          <article class="glass glass-hover rounded-2xl p-6 reveal cursor-pointer">
-            <div class="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand mb-5">
+          <article class="glass-strong card-hover rounded-3xl p-7 reveal cursor-pointer shadow-card hover:shadow-lift">
+            <div class="grid place-items-center w-12 h-12 rounded-2xl bg-brand/10 text-brand mb-5">
               <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             </div>
-            <h3 class="font-heading font-semibold text-lg">Business Websites</h3>
-            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Fast, modern, mobile-ready websites that turn visitors into customers and represent your brand.</p>
-            <a href="#websites" class="inline-flex items-center gap-1.5 text-brand text-sm font-semibold mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="font-semibold text-lg tracking-tight">Business Websites</h3>
+            <p class="text-sub text-sm mt-2 leading-relaxed">Fast, modern, mobile-ready websites that turn visitors into customers and represent your brand.</p>
+            <a href="#websites" class="inline-flex items-center gap-1.5 text-brand text-sm font-medium mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
-          <!-- Card 3 -->
-          <article class="glass glass-hover rounded-2xl p-6 reveal cursor-pointer">
-            <div class="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand mb-5">
+          <article class="glass-strong card-hover rounded-3xl p-7 reveal cursor-pointer shadow-card hover:shadow-lift">
+            <div class="grid place-items-center w-12 h-12 rounded-2xl bg-brand/10 text-brand mb-5">
               <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 15h2m-2 0v4m10-4h-4"/></svg>
             </div>
-            <h3 class="font-heading font-semibold text-lg">Restaurant Menus</h3>
-            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Digital QR &amp; web menus you can update anytime — photos, prices, categories and instant publishing.</p>
-            <a href="#websites" class="inline-flex items-center gap-1.5 text-brand text-sm font-semibold mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="font-semibold text-lg tracking-tight">Restaurant Menus</h3>
+            <p class="text-sub text-sm mt-2 leading-relaxed">Digital QR &amp; web menus you can update anytime — photos, prices, categories and instant publishing.</p>
+            <a href="#websites" class="inline-flex items-center gap-1.5 text-brand text-sm font-medium mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
-          <!-- Card 4 -->
-          <article class="glass glass-hover rounded-2xl p-6 reveal cursor-pointer">
-            <div class="grid place-items-center w-12 h-12 rounded-xl bg-brand/15 text-brand mb-5">
+          <article class="glass-strong card-hover rounded-3xl p-7 reveal cursor-pointer shadow-card hover:shadow-lift">
+            <div class="grid place-items-center w-12 h-12 rounded-2xl bg-brand/10 text-brand mb-5">
               <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>
             </div>
-            <h3 class="font-heading font-semibold text-lg">NFC Bio Cards</h3>
-            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Smart contact cards for each employee, with a shared company repertoire and review analytics dashboard.</p>
-            <a href="#nfc" class="inline-flex items-center gap-1.5 text-brand text-sm font-semibold mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="font-semibold text-lg tracking-tight">NFC Bio Cards</h3>
+            <p class="text-sub text-sm mt-2 leading-relaxed">Smart contact cards for each employee, with a shared company repertoire and review analytics dashboard.</p>
+            <a href="#nfc" class="inline-flex items-center gap-1.5 text-brand text-sm font-medium mt-4 hover:gap-2.5 transition-all">Learn more <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
         </div>
       </div>
     </section>
 
     <!-- ===== STORE DASHBOARD DEEP DIVE ===== -->
-    <section id="dashboard" class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section id="dashboard" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         <div class="reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">Store System</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">One dashboard. Total control of your numbers.</h2>
-          <p class="text-slate-300 mt-4 leading-relaxed">Stop juggling spreadsheets. The MK Core store system connects every part of your shop and does the math for you — so you always know exactly where the money goes.</p>
+          <p class="text-brand font-semibold text-sm">Store System</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">One dashboard. Total control of your numbers.</h2>
+          <p class="text-sub mt-4 text-lg leading-relaxed">Stop juggling spreadsheets. The MK Core store system connects every part of your shop and does the math for you — so you always know exactly where the money goes.</p>
           <ul class="mt-7 space-y-4">
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong class="text-white">Salaries</strong> <span class="text-slate-400">— track staff pay, hours and payroll totals automatically.</span></span></li>
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong class="text-white">Inventory</strong> <span class="text-slate-400">— live stock levels with low-stock alerts.</span></span></li>
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong class="text-white">Sales &amp; Expenses</strong> <span class="text-slate-400">— every transaction recorded and categorized.</span></span></li>
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong class="text-white">Profit</strong> <span class="text-slate-400">— calculated in real time, no manual math.</span></span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Salaries</strong> <span class="text-sub">— track staff pay, hours and payroll totals automatically.</span></span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Inventory</strong> <span class="text-sub">— live stock levels with low-stock alerts.</span></span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Sales &amp; Expenses</strong> <span class="text-sub">— every transaction recorded and categorized.</span></span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Profit</strong> <span class="text-sub">— calculated in real time, no manual math.</span></span></li>
           </ul>
         </div>
 
         <div class="reveal">
-          <div class="glass rounded-3xl p-5">
+          <div class="glass-strong rounded-3xl p-5 shadow-card">
             <div class="grid grid-cols-2 gap-3">
-              <div class="rounded-xl bg-surface/60 p-4 border border-white/5">
-                <p class="text-xs text-slate-400">Salaries paid</p>
-                <p class="font-heading font-bold text-xl mt-1">$9,400</p>
+              <div class="rounded-2xl bg-white p-4 border border-black/5">
+                <p class="text-xs text-sub">Salaries paid</p>
+                <p class="font-semibold text-xl mt-1 tracking-tight">$9,400</p>
               </div>
-              <div class="rounded-xl bg-surface/60 p-4 border border-white/5">
-                <p class="text-xs text-slate-400">Items in stock</p>
-                <p class="font-heading font-bold text-xl mt-1">1,284</p>
+              <div class="rounded-2xl bg-white p-4 border border-black/5">
+                <p class="text-xs text-sub">Items in stock</p>
+                <p class="font-semibold text-xl mt-1 tracking-tight">1,284</p>
               </div>
-              <div class="col-span-2 rounded-xl bg-surface/60 p-4 border border-white/5">
-                <p class="text-xs text-slate-400 mb-3">Expense breakdown</p>
+              <div class="col-span-2 rounded-2xl bg-white p-4 border border-black/5">
+                <p class="text-xs text-sub mb-3">Expense breakdown</p>
                 <div class="space-y-3 text-xs">
-                  <div><div class="flex justify-between mb-1"><span class="text-slate-300">Salaries</span><span class="text-slate-400">31%</span></div><div class="h-2 rounded-full bg-white/10"><div class="h-2 rounded-full bg-brand" style="width:31%"></div></div></div>
-                  <div><div class="flex justify-between mb-1"><span class="text-slate-300">Stock purchase</span><span class="text-slate-400">44%</span></div><div class="h-2 rounded-full bg-white/10"><div class="h-2 rounded-full bg-sky-400" style="width:44%"></div></div></div>
-                  <div><div class="flex justify-between mb-1"><span class="text-slate-300">Bills &amp; rent</span><span class="text-slate-400">25%</span></div><div class="h-2 rounded-full bg-white/10"><div class="h-2 rounded-full bg-amber-400" style="width:25%"></div></div></div>
+                  <div><div class="flex justify-between mb-1"><span>Salaries</span><span class="text-sub">31%</span></div><div class="h-2 rounded-full bg-black/5"><div class="h-2 rounded-full bg-brand" style="width:31%"></div></div></div>
+                  <div><div class="flex justify-between mb-1"><span>Stock purchase</span><span class="text-sub">44%</span></div><div class="h-2 rounded-full bg-black/5"><div class="h-2 rounded-full bg-sky-400" style="width:44%"></div></div></div>
+                  <div><div class="flex justify-between mb-1"><span>Bills &amp; rent</span><span class="text-sub">25%</span></div><div class="h-2 rounded-full bg-black/5"><div class="h-2 rounded-full bg-amber-400" style="width:25%"></div></div></div>
                 </div>
               </div>
-              <div class="col-span-2 rounded-xl bg-brand/10 border border-brand/30 p-4 flex items-center justify-between">
-                <div><p class="text-xs text-brand">Net profit this month</p><p class="font-heading font-bold text-2xl mt-1 text-white">$17,820</p></div>
+              <div class="col-span-2 rounded-2xl bg-brand/5 border border-brand/20 p-4 flex items-center justify-between">
+                <div><p class="text-xs text-brand font-medium">Net profit this month</p><p class="font-semibold text-2xl mt-1 tracking-tight">$17,820</p></div>
                 <svg viewBox="0 0 24 24" class="w-10 h-10 text-brand" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
               </div>
             </div>
@@ -303,27 +299,27 @@
     </section>
 
     <!-- ===== WEBSITES & MENUS ===== -->
-    <section id="websites" class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section id="websites" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         <div class="order-2 lg:order-1 reveal">
-          <div class="glass rounded-3xl p-5">
-            <div class="rounded-2xl bg-ink/80 border border-white/5 overflow-hidden">
-              <div class="px-4 py-3 border-b border-white/5 flex items-center gap-2 text-xs text-slate-400">
+          <div class="glass-strong rounded-3xl p-5 shadow-card">
+            <div class="rounded-2xl bg-white border border-black/5 overflow-hidden">
+              <div class="px-4 py-3 border-b border-black/5 flex items-center gap-2 text-xs text-sub">
                 <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
                 yourrestaurant.com/menu
               </div>
               <div class="p-4 space-y-3">
-                <p class="font-heading font-semibold text-sm text-slate-300">Today's Menu</p>
-                <div class="flex items-center justify-between rounded-xl bg-surface/60 p-3 border border-white/5">
-                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400/40 to-brand/40"></div><div><p class="text-sm font-medium">Grilled Chicken</p><p class="text-xs text-slate-400">Main course</p></div></div>
+                <p class="font-semibold text-sm">Today's Menu</p>
+                <div class="flex items-center justify-between rounded-2xl bg-canvas p-3">
+                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300 to-brandLight"></div><div><p class="text-sm font-medium">Grilled Chicken</p><p class="text-xs text-sub">Main course</p></div></div>
                   <span class="text-brand font-semibold text-sm">$12.5</span>
                 </div>
-                <div class="flex items-center justify-between rounded-xl bg-surface/60 p-3 border border-white/5">
-                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-400/40 to-brand/40"></div><div><p class="text-sm font-medium">Fresh Pasta</p><p class="text-xs text-slate-400">Italian</p></div></div>
+                <div class="flex items-center justify-between rounded-2xl bg-canvas p-3">
+                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-300 to-brandLight"></div><div><p class="text-sm font-medium">Fresh Pasta</p><p class="text-xs text-sub">Italian</p></div></div>
                   <span class="text-brand font-semibold text-sm">$10.0</span>
                 </div>
-                <div class="flex items-center justify-between rounded-xl bg-surface/60 p-3 border border-white/5">
-                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-400/40 to-brand/40"></div><div><p class="text-sm font-medium">House Dessert</p><p class="text-xs text-slate-400">Sweet</p></div></div>
+                <div class="flex items-center justify-between rounded-2xl bg-canvas p-3">
+                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-300 to-brandLight"></div><div><p class="text-sm font-medium">House Dessert</p><p class="text-xs text-sub">Sweet</p></div></div>
                   <span class="text-brand font-semibold text-sm">$6.0</span>
                 </div>
               </div>
@@ -331,186 +327,184 @@
           </div>
         </div>
         <div class="order-1 lg:order-2 reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">Websites &amp; Menus</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">A beautiful online home for your business</h2>
-          <p class="text-slate-300 mt-4 leading-relaxed">From company websites to interactive restaurant menus, we design pages that load fast, look great on every screen, and are easy for you to update yourself.</p>
-          <div class="grid sm:grid-cols-2 gap-4 mt-7">
-            <div class="glass rounded-xl p-4"><p class="font-semibold text-sm">QR &amp; digital menus</p><p class="text-slate-400 text-xs mt-1">Update prices and dishes instantly.</p></div>
-            <div class="glass rounded-xl p-4"><p class="font-semibold text-sm">Mobile-first design</p><p class="text-slate-400 text-xs mt-1">Perfect on phones, tablets &amp; desktop.</p></div>
-            <div class="glass rounded-xl p-4"><p class="font-semibold text-sm">SEO ready</p><p class="text-slate-400 text-xs mt-1">Get found on Google search.</p></div>
-            <div class="glass rounded-xl p-4"><p class="font-semibold text-sm">Booking &amp; contact</p><p class="text-slate-400 text-xs mt-1">Forms, maps and click-to-call.</p></div>
+          <p class="text-brand font-semibold text-sm">Websites &amp; Menus</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">A beautiful online home for your business</h2>
+          <p class="text-sub mt-4 text-lg leading-relaxed">From company websites to interactive restaurant menus, we design pages that load fast, look great on every screen, and are easy for you to update yourself.</p>
+          <div class="grid sm:grid-cols-2 gap-3 mt-7">
+            <div class="glass-strong rounded-2xl p-4 shadow-soft"><p class="font-medium text-sm">QR &amp; digital menus</p><p class="text-sub text-xs mt-1">Update prices and dishes instantly.</p></div>
+            <div class="glass-strong rounded-2xl p-4 shadow-soft"><p class="font-medium text-sm">Mobile-first design</p><p class="text-sub text-xs mt-1">Perfect on phones, tablets &amp; desktop.</p></div>
+            <div class="glass-strong rounded-2xl p-4 shadow-soft"><p class="font-medium text-sm">SEO ready</p><p class="text-sub text-xs mt-1">Get found on Google search.</p></div>
+            <div class="glass-strong rounded-2xl p-4 shadow-soft"><p class="font-medium text-sm">Booking &amp; contact</p><p class="text-sub text-xs mt-1">Forms, maps and click-to-call.</p></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===== NFC CARDS ===== -->
-    <section id="nfc" class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section id="nfc" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         <div class="reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">NFC Bio Cards</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">Tap to share. Track every connection.</h2>
-          <p class="text-slate-300 mt-4 leading-relaxed">Give every employee a smart NFC card that shares their contact info with a single tap. Manage your whole company's cards from one repertoire — and see who's collecting the most reviews and connections.</p>
+          <p class="text-brand font-semibold text-sm">NFC Bio Cards</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">Tap to share. Track every connection.</h2>
+          <p class="text-sub mt-4 text-lg leading-relaxed">Give every employee a smart NFC card that shares their contact info with a single tap. Manage your whole company's cards from one repertoire — and see who's collecting the most reviews and connections.</p>
           <ul class="mt-7 space-y-4">
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-slate-300">Personal contact profile per employee</span></li>
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-slate-300">Single company card repertoire</span></li>
-            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/15 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-slate-300">Review &amp; analytics dashboard</span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-sub">Personal contact profile per employee</span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-sub">Single company card repertoire</span></li>
+            <li class="flex gap-3"><span class="mt-0.5 grid place-items-center w-6 h-6 rounded-full bg-brand/10 text-brand shrink-0"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="text-sub">Review &amp; analytics dashboard</span></li>
           </ul>
         </div>
 
         <div class="reveal flex flex-col items-center gap-6">
-          <!-- NFC card mock -->
-          <div class="relative w-full max-w-sm aspect-[1.6/1] rounded-2xl p-6 bg-gradient-to-br from-surface to-ink border border-white/10 shadow-glow animate-float">
+          <div class="relative w-full max-w-sm aspect-[1.6/1] rounded-[26px] p-6 bg-gradient-to-br from-ink to-[#3A3A3C] text-white shadow-lift animate-float">
             <div class="flex items-start justify-between">
               <div>
-                <p class="font-heading font-bold text-lg">Sara Ahmed</p>
-                <p class="text-xs text-slate-400">Sales Manager · MK Core</p>
+                <p class="font-semibold text-lg tracking-tight">Sara Ahmed</p>
+                <p class="text-xs text-white/60">Sales Manager · MK Core</p>
               </div>
-              <svg viewBox="0 0 24 24" class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a9 9 0 0 1 12 0M9 12a4.5 4.5 0 0 1 6 0M12 15.5h.01"/></svg>
+              <svg viewBox="0 0 24 24" class="w-7 h-7 text-brandLight" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a9 9 0 0 1 12 0M9 12a4.5 4.5 0 0 1 6 0M12 15.5h.01"/></svg>
             </div>
             <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-              <span class="text-xs text-slate-400">Tap to connect</span>
-              <span class="text-xs font-semibold text-brand">mkcore.card/sara</span>
+              <span class="text-xs text-white/60">Tap to connect</span>
+              <span class="text-xs font-semibold text-brandLight">mkcore.card/sara</span>
             </div>
           </div>
-          <!-- analytics mini -->
-          <div class="glass rounded-2xl p-4 w-full max-w-sm grid grid-cols-3 gap-3 text-center">
-            <div><p class="font-heading font-bold text-xl text-brand">312</p><p class="text-[11px] text-slate-400">Taps</p></div>
-            <div><p class="font-heading font-bold text-xl text-brand">87</p><p class="text-[11px] text-slate-400">Contacts saved</p></div>
-            <div><p class="font-heading font-bold text-xl text-brand">4.8★</p><p class="text-[11px] text-slate-400">Avg review</p></div>
+          <div class="glass-strong rounded-3xl p-5 w-full max-w-sm grid grid-cols-3 gap-3 text-center shadow-card">
+            <div><p class="font-semibold text-2xl text-brand tracking-tight">312</p><p class="text-[11px] text-sub">Taps</p></div>
+            <div><p class="font-semibold text-2xl text-brand tracking-tight">87</p><p class="text-[11px] text-sub">Contacts saved</p></div>
+            <div><p class="font-semibold text-2xl text-brand tracking-tight">4.8★</p><p class="text-[11px] text-sub">Avg review</p></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===== PROCESS ===== -->
-    <section id="process" class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto">
+    <section id="process" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto">
         <div class="max-w-2xl mx-auto text-center reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">How it works</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">From idea to live in 3 simple steps</h2>
+          <p class="text-brand font-semibold text-sm">How it works</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">From idea to live in 3 simple steps</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6 mt-14">
-          <div class="glass glass-hover rounded-2xl p-6 reveal">
-            <span class="font-heading font-bold text-3xl text-brand/40">01</span>
-            <h3 class="font-heading font-semibold text-lg mt-3">Tell us your needs</h3>
-            <p class="text-slate-400 text-sm mt-2">A quick call to understand your business, goals and which solutions fit.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-14">
+          <div class="glass-strong card-hover rounded-3xl p-7 reveal shadow-card hover:shadow-lift">
+            <span class="font-semibold text-4xl text-brand/30 tracking-tight">01</span>
+            <h3 class="font-semibold text-lg mt-3 tracking-tight">Tell us your needs</h3>
+            <p class="text-sub text-sm mt-2">A quick call to understand your business, goals and which solutions fit.</p>
           </div>
-          <div class="glass glass-hover rounded-2xl p-6 reveal">
-            <span class="font-heading font-bold text-3xl text-brand/40">02</span>
-            <h3 class="font-heading font-semibold text-lg mt-3">We build &amp; set up</h3>
-            <p class="text-slate-400 text-sm mt-2">We configure your dashboard, website, menu or NFC cards — fully tailored to you.</p>
+          <div class="glass-strong card-hover rounded-3xl p-7 reveal shadow-card hover:shadow-lift">
+            <span class="font-semibold text-4xl text-brand/30 tracking-tight">02</span>
+            <h3 class="font-semibold text-lg mt-3 tracking-tight">We build &amp; set up</h3>
+            <p class="text-sub text-sm mt-2">We configure your dashboard, website, menu or NFC cards — fully tailored to you.</p>
           </div>
-          <div class="glass glass-hover rounded-2xl p-6 reveal">
-            <span class="font-heading font-bold text-3xl text-brand/40">03</span>
-            <h3 class="font-heading font-semibold text-lg mt-3">Launch &amp; grow</h3>
-            <p class="text-slate-400 text-sm mt-2">Go live with ongoing support, training and updates whenever you need them.</p>
+          <div class="glass-strong card-hover rounded-3xl p-7 reveal shadow-card hover:shadow-lift">
+            <span class="font-semibold text-4xl text-brand/30 tracking-tight">03</span>
+            <h3 class="font-semibold text-lg mt-3 tracking-tight">Launch &amp; grow</h3>
+            <p class="text-sub text-sm mt-2">Go live with ongoing support, training and updates whenever you need them.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===== TESTIMONIALS ===== -->
-    <section class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto">
+    <section class="px-4 py-20">
+      <div class="max-w-6xl mx-auto">
         <div class="max-w-2xl mx-auto text-center reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">Loved by business owners</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">Don't just take our word for it</h2>
+          <p class="text-brand font-semibold text-sm">Loved by business owners</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">Don't just take our word for it</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-5 mt-14">
-          <figure class="glass rounded-2xl p-6 reveal">
-            <div class="flex gap-1 text-brand mb-3">★★★★★</div>
-            <blockquote class="text-slate-300 text-sm leading-relaxed">"The store dashboard saves me hours every week. I finally see my real profit without touching a spreadsheet."</blockquote>
-            <figcaption class="mt-4 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/20 grid place-items-center text-brand font-semibold text-sm">M</span><span><span class="block text-sm font-medium text-white">Mohammed K.</span><span class="block text-xs text-slate-400">Grocery store owner</span></span></figcaption>
+        <div class="grid md:grid-cols-3 gap-4 mt-14">
+          <figure class="glass-strong rounded-3xl p-7 reveal shadow-card">
+            <div class="flex gap-0.5 text-brandLight mb-3">★★★★★</div>
+            <blockquote class="text-ink text-[15px] leading-relaxed">"The store dashboard saves me hours every week. I finally see my real profit without touching a spreadsheet."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/10 grid place-items-center text-brand font-semibold text-sm">M</span><span><span class="block text-sm font-medium">Mohammed K.</span><span class="block text-xs text-sub">Grocery store owner</span></span></figcaption>
           </figure>
-          <figure class="glass rounded-2xl p-6 reveal">
-            <div class="flex gap-1 text-brand mb-3">★★★★★</div>
-            <blockquote class="text-slate-300 text-sm leading-relaxed">"Our restaurant menu went digital in two days. Updating prices is now instant and customers love it."</blockquote>
-            <figcaption class="mt-4 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/20 grid place-items-center text-brand font-semibold text-sm">L</span><span><span class="block text-sm font-medium text-white">Layla R.</span><span class="block text-xs text-slate-400">Café manager</span></span></figcaption>
+          <figure class="glass-strong rounded-3xl p-7 reveal shadow-card">
+            <div class="flex gap-0.5 text-brandLight mb-3">★★★★★</div>
+            <blockquote class="text-ink text-[15px] leading-relaxed">"Our restaurant menu went digital in two days. Updating prices is now instant and customers love it."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/10 grid place-items-center text-brand font-semibold text-sm">L</span><span><span class="block text-sm font-medium">Layla R.</span><span class="block text-xs text-sub">Café manager</span></span></figcaption>
           </figure>
-          <figure class="glass rounded-2xl p-6 reveal">
-            <div class="flex gap-1 text-brand mb-3">★★★★★</div>
-            <blockquote class="text-slate-300 text-sm leading-relaxed">"The NFC cards make our whole team look professional, and the analytics show us who's bringing in reviews."</blockquote>
-            <figcaption class="mt-4 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/20 grid place-items-center text-brand font-semibold text-sm">A</span><span><span class="block text-sm font-medium text-white">Ahmed S.</span><span class="block text-xs text-slate-400">Agency director</span></span></figcaption>
+          <figure class="glass-strong rounded-3xl p-7 reveal shadow-card">
+            <div class="flex gap-0.5 text-brandLight mb-3">★★★★★</div>
+            <blockquote class="text-ink text-[15px] leading-relaxed">"The NFC cards make our whole team look professional, and the analytics show us who's bringing in reviews."</blockquote>
+            <figcaption class="mt-5 flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-brand/10 grid place-items-center text-brand font-semibold text-sm">A</span><span><span class="block text-sm font-medium">Ahmed S.</span><span class="block text-xs text-sub">Agency director</span></span></figcaption>
           </figure>
         </div>
       </div>
     </section>
 
     <!-- ===== PRICING ===== -->
-    <section id="pricing" class="px-4 py-24 border-t border-white/5">
-      <div class="max-w-7xl mx-auto">
+    <section id="pricing" class="px-4 py-20">
+      <div class="max-w-6xl mx-auto">
         <div class="max-w-2xl mx-auto text-center reveal">
-          <p class="text-brand font-semibold text-sm uppercase tracking-wider">Pricing</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl mt-3">Simple plans that scale with you</h2>
-          <p class="text-slate-300 mt-4">Pick a package or mix solutions — we'll tailor a quote to your business.</p>
+          <p class="text-brand font-semibold text-sm">Pricing</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl mt-3 tracking-tight">Simple plans that scale with you</h2>
+          <p class="text-sub mt-4 text-lg">Pick a package or mix solutions — we'll tailor a quote to your business.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-5 mt-14 items-stretch">
-          <div class="glass glass-hover rounded-2xl p-7 reveal flex flex-col">
-            <h3 class="font-heading font-semibold text-lg">Starter</h3>
-            <p class="text-slate-400 text-sm mt-1">For small shops &amp; single locations</p>
-            <p class="font-heading font-bold text-4xl mt-5">$49<span class="text-base font-normal text-slate-400">/mo</span></p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-300 flex-1">
+        <div class="grid md:grid-cols-3 gap-4 mt-14 items-stretch">
+          <div class="glass-strong card-hover rounded-3xl p-8 reveal flex flex-col shadow-card hover:shadow-lift">
+            <h3 class="font-semibold text-lg tracking-tight">Starter</h3>
+            <p class="text-sub text-sm mt-1">For small shops &amp; single locations</p>
+            <p class="font-semibold text-5xl mt-5 tracking-tight">$49<span class="text-base font-normal text-sub">/mo</span></p>
+            <ul class="mt-6 space-y-3 text-sm flex-1">
               <li class="flex gap-2"><span class="text-brand">✓</span> Store dashboard (1 location)</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Inventory &amp; sales tracking</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Basic website or menu</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Email support</li>
             </ul>
-            <a href="#contact" class="mt-7 inline-flex justify-center glass glass-hover rounded-xl py-3 font-semibold transition-colors cursor-pointer">Get started</a>
+            <a href="#contact" class="mt-7 inline-flex justify-center bg-canvas hover:bg-black/5 rounded-full py-3 font-medium transition-colors cursor-pointer">Get started</a>
           </div>
 
-          <div class="rounded-2xl p-7 reveal flex flex-col bg-gradient-to-b from-brand/15 to-surface/40 border border-brand/40 shadow-glow relative">
-            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand text-ink text-xs font-bold px-3 py-1 rounded-full">Most popular</span>
-            <h3 class="font-heading font-semibold text-lg">Business</h3>
-            <p class="text-slate-400 text-sm mt-1">For growing businesses</p>
-            <p class="font-heading font-bold text-4xl mt-5">$99<span class="text-base font-normal text-slate-400">/mo</span></p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-200 flex-1">
-              <li class="flex gap-2"><span class="text-brand">✓</span> Everything in Starter</li>
-              <li class="flex gap-2"><span class="text-brand">✓</span> Salaries &amp; profit automation</li>
-              <li class="flex gap-2"><span class="text-brand">✓</span> Full custom website + menu</li>
-              <li class="flex gap-2"><span class="text-brand">✓</span> 5 NFC bio cards included</li>
-              <li class="flex gap-2"><span class="text-brand">✓</span> Priority support</li>
+          <div class="rounded-3xl p-8 reveal flex flex-col bg-ink text-white shadow-lift relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand text-white text-xs font-semibold px-3 py-1 rounded-full">Most popular</span>
+            <h3 class="font-semibold text-lg tracking-tight">Business</h3>
+            <p class="text-white/60 text-sm mt-1">For growing businesses</p>
+            <p class="font-semibold text-5xl mt-5 tracking-tight">$99<span class="text-base font-normal text-white/60">/mo</span></p>
+            <ul class="mt-6 space-y-3 text-sm flex-1">
+              <li class="flex gap-2"><span class="text-brandLight">✓</span> Everything in Starter</li>
+              <li class="flex gap-2"><span class="text-brandLight">✓</span> Salaries &amp; profit automation</li>
+              <li class="flex gap-2"><span class="text-brandLight">✓</span> Full custom website + menu</li>
+              <li class="flex gap-2"><span class="text-brandLight">✓</span> 5 NFC bio cards included</li>
+              <li class="flex gap-2"><span class="text-brandLight">✓</span> Priority support</li>
             </ul>
-            <a href="#contact" class="mt-7 inline-flex justify-center bg-brand hover:bg-brandDark text-ink rounded-xl py-3 font-semibold transition-colors cursor-pointer">Get started</a>
+            <a href="#contact" class="mt-7 inline-flex justify-center bg-brand hover:bg-[#166534] text-white rounded-full py-3 font-medium transition-colors cursor-pointer">Get started</a>
           </div>
 
-          <div class="glass glass-hover rounded-2xl p-7 reveal flex flex-col">
-            <h3 class="font-heading font-semibold text-lg">Enterprise</h3>
-            <p class="text-slate-400 text-sm mt-1">For multi-location companies</p>
-            <p class="font-heading font-bold text-4xl mt-5">Custom</p>
-            <ul class="mt-6 space-y-3 text-sm text-slate-300 flex-1">
+          <div class="glass-strong card-hover rounded-3xl p-8 reveal flex flex-col shadow-card hover:shadow-lift">
+            <h3 class="font-semibold text-lg tracking-tight">Enterprise</h3>
+            <p class="text-sub text-sm mt-1">For multi-location companies</p>
+            <p class="font-semibold text-5xl mt-5 tracking-tight">Custom</p>
+            <ul class="mt-6 space-y-3 text-sm flex-1">
               <li class="flex gap-2"><span class="text-brand">✓</span> Everything in Business</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Unlimited locations &amp; NFC cards</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Company card repertoire</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Review analytics dashboard</li>
               <li class="flex gap-2"><span class="text-brand">✓</span> Dedicated account manager</li>
             </ul>
-            <a href="#contact" class="mt-7 inline-flex justify-center glass glass-hover rounded-xl py-3 font-semibold transition-colors cursor-pointer">Contact sales</a>
+            <a href="#contact" class="mt-7 inline-flex justify-center bg-canvas hover:bg-black/5 rounded-full py-3 font-medium transition-colors cursor-pointer">Contact sales</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== CONTACT / CTA ===== -->
-    <section id="contact" class="px-4 py-24 border-t border-white/5">
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="px-4 py-20">
       <div class="max-w-3xl mx-auto reveal">
         <div class="text-center mb-10">
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl">Let's build your solution</h2>
-          <p class="text-slate-300 mt-4">Tell us a little about your business and we'll get back to you with a free demo and quote.</p>
+          <h2 class="font-semibold text-4xl sm:text-5xl tracking-tight">Let's build your solution</h2>
+          <p class="text-sub mt-4 text-lg">Tell us a little about your business and we'll get back to you with a free demo and quote.</p>
         </div>
-        <form class="glass rounded-3xl p-6 sm:p-8 grid sm:grid-cols-2 gap-5" onsubmit="event.preventDefault(); this.reset(); document.getElementById('formMsg').classList.remove('hidden');">
+        <form class="glass-strong rounded-3xl p-6 sm:p-8 grid sm:grid-cols-2 gap-5 shadow-card" onsubmit="event.preventDefault(); this.reset(); document.getElementById('formMsg').classList.remove('hidden');">
           <div>
             <label for="name" class="block text-sm font-medium mb-2">Full name</label>
-            <input id="name" name="name" type="text" required class="w-full rounded-xl bg-ink/60 border border-white/10 px-4 py-3 text-sm placeholder-slate-500 focus:border-brand outline-none transition-colors" placeholder="Your name" />
+            <input id="name" name="name" type="text" required class="w-full rounded-2xl bg-white border border-black/10 px-4 py-3 text-sm placeholder-sub/60 focus:border-brand outline-none transition-colors" placeholder="Your name" />
           </div>
           <div>
             <label for="email" class="block text-sm font-medium mb-2">Email</label>
-            <input id="email" name="email" type="email" required class="w-full rounded-xl bg-ink/60 border border-white/10 px-4 py-3 text-sm placeholder-slate-500 focus:border-brand outline-none transition-colors" placeholder="you@business.com" />
+            <input id="email" name="email" type="email" required class="w-full rounded-2xl bg-white border border-black/10 px-4 py-3 text-sm placeholder-sub/60 focus:border-brand outline-none transition-colors" placeholder="you@business.com" />
           </div>
           <div class="sm:col-span-2">
             <label for="service" class="block text-sm font-medium mb-2">I'm interested in</label>
-            <select id="service" name="service" class="w-full rounded-xl bg-ink/60 border border-white/10 px-4 py-3 text-sm focus:border-brand outline-none transition-colors cursor-pointer">
+            <select id="service" name="service" class="w-full rounded-2xl bg-white border border-black/10 px-4 py-3 text-sm focus:border-brand outline-none transition-colors cursor-pointer">
               <option>Store / POS dashboard</option>
               <option>Business website</option>
               <option>Restaurant menu</option>
@@ -520,14 +514,14 @@
           </div>
           <div class="sm:col-span-2">
             <label for="message" class="block text-sm font-medium mb-2">Message</label>
-            <textarea id="message" name="message" rows="4" class="w-full rounded-xl bg-ink/60 border border-white/10 px-4 py-3 text-sm placeholder-slate-500 focus:border-brand outline-none transition-colors resize-none" placeholder="Tell us about your business..."></textarea>
+            <textarea id="message" name="message" rows="4" class="w-full rounded-2xl bg-white border border-black/10 px-4 py-3 text-sm placeholder-sub/60 focus:border-brand outline-none transition-colors resize-none" placeholder="Tell us about your business..."></textarea>
           </div>
           <div class="sm:col-span-2 flex flex-col sm:flex-row items-center gap-4">
-            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-brandDark text-ink font-semibold px-6 py-3.5 rounded-xl transition-colors cursor-pointer shadow-glow">
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer">
               Send request
               <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
             </button>
-            <p id="formMsg" class="hidden text-brand text-sm">Thanks! We'll be in touch shortly.</p>
+            <p id="formMsg" class="hidden text-brand text-sm font-medium">Thanks! We'll be in touch shortly.</p>
           </div>
         </form>
       </div>
@@ -535,52 +529,53 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="px-4 pt-16 pb-8 border-t border-white/5">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
-      <div class="md:col-span-1">
-        <a href="#home" class="flex items-center gap-2.5 font-heading font-extrabold text-lg">
-          <span class="grid place-items-center w-9 h-9 rounded-xl bg-brand text-ink"><span class="font-heading font-extrabold text-sm">MK</span></span>
-          Core
-        </a>
-        <p class="text-slate-400 text-sm mt-4 leading-relaxed">Complete business solutions — store systems, websites, menus and smart NFC cards.</p>
+  <footer class="px-4 pt-16 pb-10">
+    <div class="max-w-6xl mx-auto glass-strong rounded-[28px] p-8 sm:p-10 shadow-soft">
+      <div class="grid md:grid-cols-4 gap-10">
+        <div class="md:col-span-1">
+          <a href="#home" class="flex items-center gap-2.5 font-semibold text-lg">
+            <span class="grid place-items-center w-8 h-8 rounded-xl bg-brand text-white"><span class="font-bold text-xs">MK</span></span>
+            Core
+          </a>
+          <p class="text-sub text-sm mt-4 leading-relaxed">Complete business solutions — store systems, websites, menus and smart NFC cards.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-sm mb-4">Solutions</p>
+          <ul class="space-y-2.5 text-sm text-sub">
+            <li><a href="#dashboard" class="hover:text-ink transition-colors">Store systems</a></li>
+            <li><a href="#websites" class="hover:text-ink transition-colors">Websites</a></li>
+            <li><a href="#websites" class="hover:text-ink transition-colors">Restaurant menus</a></li>
+            <li><a href="#nfc" class="hover:text-ink transition-colors">NFC bio cards</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-sm mb-4">Company</p>
+          <ul class="space-y-2.5 text-sm text-sub">
+            <li><a href="#process" class="hover:text-ink transition-colors">How it works</a></li>
+            <li><a href="#pricing" class="hover:text-ink transition-colors">Pricing</a></li>
+            <li><a href="#contact" class="hover:text-ink transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-sm mb-4">Get in touch</p>
+          <ul class="space-y-2.5 text-sm text-sub">
+            <li><a href="mailto:yasserbmlh24@gmail.com" class="hover:text-ink transition-colors">yasserbmlh24@gmail.com</a></li>
+            <li class="flex gap-2 pt-2">
+              <a href="#" aria-label="Instagram" class="grid place-items-center w-9 h-9 rounded-full bg-canvas hover:bg-black/5 transition-colors cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+              <a href="#" aria-label="WhatsApp" class="grid place-items-center w-9 h-9 rounded-full bg-canvas hover:bg-black/5 transition-colors cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-11.7 7.7L3 21l1.9-6.1A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+              <a href="#" aria-label="LinkedIn" class="grid place-items-center w-9 h-9 rounded-full bg-canvas hover:bg-black/5 transition-colors cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-9h4v1.5"/><rect x="2" y="9" width="4" height="11"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <p class="font-semibold text-sm mb-4">Solutions</p>
-        <ul class="space-y-2.5 text-sm text-slate-400">
-          <li><a href="#dashboard" class="hover:text-white transition-colors">Store systems</a></li>
-          <li><a href="#websites" class="hover:text-white transition-colors">Websites</a></li>
-          <li><a href="#websites" class="hover:text-white transition-colors">Restaurant menus</a></li>
-          <li><a href="#nfc" class="hover:text-white transition-colors">NFC bio cards</a></li>
-        </ul>
+      <div class="mt-10 pt-6 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-sub">
+        <p>© <span id="year"></span> MK Core. All rights reserved.</p>
+        <p>Built for businesses that want to grow.</p>
       </div>
-      <div>
-        <p class="font-semibold text-sm mb-4">Company</p>
-        <ul class="space-y-2.5 text-sm text-slate-400">
-          <li><a href="#process" class="hover:text-white transition-colors">How it works</a></li>
-          <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
-          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="font-semibold text-sm mb-4">Get in touch</p>
-        <ul class="space-y-2.5 text-sm text-slate-400">
-          <li><a href="mailto:yasserbmlh24@gmail.com" class="hover:text-white transition-colors">yasserbmlh24@gmail.com</a></li>
-          <li class="flex gap-3 pt-2">
-            <a href="#" aria-label="Instagram" class="grid place-items-center w-9 h-9 rounded-lg glass glass-hover cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-            <a href="#" aria-label="WhatsApp" class="grid place-items-center w-9 h-9 rounded-lg glass glass-hover cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-11.7 7.7L3 21l1.9-6.1A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
-            <a href="#" aria-label="LinkedIn" class="grid place-items-center w-9 h-9 rounded-lg glass glass-hover cursor-pointer"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-9h4v1.5"/><rect x="2" y="9" width="4" height="11"/><circle cx="4" cy="4" r="2"/></svg></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500">
-      <p>© <span id="year"></span> MK Core. All rights reserved.</p>
-      <p>Built for businesses that want to grow.</p>
     </div>
   </footer>
 
   <script>
-    // Mobile menu
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('mobileMenu');
     btn.addEventListener('click', () => {
@@ -592,13 +587,11 @@
       menu.classList.add('hidden'); menu.classList.remove('flex'); btn.setAttribute('aria-expanded', false);
     }));
 
-    // Reveal on scroll
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
