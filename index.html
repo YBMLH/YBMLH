@@ -22,8 +22,8 @@
             ink: '#1D1D1F',
             sub: '#6E6E73',
             canvas: '#F5F5F7',
-            brand: '#15803D',
-            brandLight: '#22C55E',
+            brand: '#6D28D9',
+            brandLight: '#A78BFA',
           },
           boxShadow: {
             soft: '0 4px 24px -6px rgba(0,0,0,0.08)',
@@ -53,21 +53,28 @@
     .card-hover:hover { transform: translateY(-4px); }
     .hero-glow {
       background:
-        radial-gradient(50% 40% at 50% 0%, rgba(34,197,94,0.10), transparent 70%),
-        radial-gradient(40% 30% at 85% 10%, rgba(56,189,248,0.10), transparent 70%);
+        radial-gradient(50% 40% at 50% 0%, rgba(139,92,246,0.12), transparent 70%),
+        radial-gradient(40% 30% at 85% 10%, rgba(217,70,239,0.10), transparent 70%);
     }
+    .blob { position: absolute; border-radius: 9999px; filter: blur(64px); opacity: .45; }
+    .blob1 { width: 380px; height: 380px; background: #a78bfa; top: -90px; left: -60px; animation: drift 20s ease-in-out infinite; }
+    .blob2 { width: 320px; height: 320px; background: #f0abfc; top: 30px; right: -70px; animation: drift 24s ease-in-out infinite reverse; }
+    .blob3 { width: 300px; height: 300px; background: #93c5fd; bottom: -120px; left: 38%; animation: drift 28s ease-in-out infinite; }
+    @keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(28px,-22px) scale(1.08); } 66% { transform: translate(-22px,24px) scale(.94); } }
+    .animated-gradient { background-size: 200% auto; animation: gradientShift 7s ease infinite; }
+    @keyframes gradientShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
     .reveal.in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
       .card-hover { transition: none !important; }
-      .animate-float { animation: none !important; }
+      .animate-float, .blob, .animated-gradient { animation: none !important; }
     }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     .animate-float { animation: float 7s ease-in-out infinite; }
-    :focus-visible { outline: 2px solid #15803D; outline-offset: 3px; border-radius: 8px; }
-    ::selection { background: rgba(34,197,94,0.25); }
+    :focus-visible { outline: 2px solid #6D28D9; outline-offset: 3px; border-radius: 8px; }
+    ::selection { background: rgba(139,92,246,0.22); }
   </style>
 </head>
 
@@ -93,7 +100,7 @@
 
       <div class="flex items-center gap-2">
         <a href="#contact" class="hidden sm:inline-flex text-sm text-sub hover:text-ink transition-colors px-3 py-2 font-medium">Log in</a>
-        <a href="#contact" class="inline-flex items-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium text-sm px-4 py-2 rounded-full transition-colors cursor-pointer">
+        <a href="#contact" class="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-violet-500/30 text-white font-medium text-sm px-4 py-2 rounded-full transition-colors cursor-pointer">
           Contact Sales
         </a>
         <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="lg:hidden grid place-items-center w-9 h-9 rounded-full glass cursor-pointer text-ink">
@@ -114,7 +121,12 @@
   <main id="main">
 
     <!-- ===== HERO ===== -->
-    <section id="home" class="hero-glow pt-36 pb-20 px-4">
+    <section id="home" class="hero-glow relative overflow-hidden pt-36 pb-20 px-4">
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+      </div>
       <div class="max-w-5xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-sub mb-7 shadow-soft">
           <span class="w-1.5 h-1.5 rounded-full bg-brandLight"></span>
@@ -123,7 +135,7 @@
 
         <h1 class="font-semibold tracking-tight text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
           Run your whole business<br class="hidden sm:block" />
-          from <span class="bg-gradient-to-r from-brand to-brandLight bg-clip-text text-transparent">one smart platform</span>
+          from <span class="animated-gradient bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 bg-clip-text text-transparent">one smart platform</span>
         </h1>
 
         <p class="mt-7 text-lg sm:text-xl text-sub max-w-2xl mx-auto leading-relaxed">
@@ -131,7 +143,7 @@
         </p>
 
         <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer text-[15px]">
+          <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-violet-500/30 text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer text-[15px]">
             Get a free demo
             <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -177,8 +189,8 @@
                   <svg viewBox="0 0 600 160" class="w-full h-40" role="img" aria-label="Line chart showing revenue and profit trending upward over six months">
                     <defs>
                       <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#22C55E" stop-opacity="0.25"/>
-                        <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
+                        <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
                       </linearGradient>
                     </defs>
                     <g stroke="rgba(0,0,0,0.06)" stroke-width="1">
@@ -187,7 +199,7 @@
                       <line x1="0" y1="120" x2="600" y2="120"/>
                     </g>
                     <path d="M0,120 L120,100 L240,108 L360,70 L480,60 L600,30 L600,160 L0,160 Z" fill="url(#revFill)"/>
-                    <path d="M0,120 L120,100 L240,108 L360,70 L480,60 L600,30" fill="none" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M0,120 L120,100 L240,108 L360,70 L480,60 L600,30" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M0,140 L120,132 L240,128 L360,112 L480,104 L600,88" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
@@ -195,16 +207,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== TRUST BAR ===== -->
-    <section class="px-4 py-14">
-      <div class="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-        <div><p class="font-semibold text-4xl tracking-tight">26</p><p class="text-sm text-sub mt-1">Businesses served</p></div>
-        <div><p class="font-semibold text-4xl tracking-tight">5</p><p class="text-sm text-sub mt-1">Solution types</p></div>
-        <div><p class="font-semibold text-4xl tracking-tight">100%</p><p class="text-sm text-sub mt-1">Custom built</p></div>
-        <div><p class="font-semibold text-4xl tracking-tight">24/7</p><p class="text-sm text-sub mt-1">Support &amp; setup</p></div>
       </div>
     </section>
 
@@ -394,58 +396,9 @@
           <p class="text-sub mt-4 text-lg">A few of the 26 businesses we've built custom solutions for.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-4 mt-14">
-          <!-- Project 1 -->
-          <article class="glass-strong card-hover rounded-3xl overflow-hidden reveal shadow-card hover:shadow-lift flex flex-col">
-            <div class="h-40 bg-gradient-to-br from-indigo-500 to-sky-400 grid place-items-center">
-              <svg viewBox="0 0 24 24" class="w-14 h-14 text-white/90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
-            </div>
-            <div class="p-6 flex flex-col flex-1">
-              <span class="inline-flex w-fit text-xs font-medium text-brand bg-brand/10 px-2.5 py-1 rounded-full">Custom Software</span>
-              <h3 class="font-semibold text-lg mt-3 tracking-tight">Offline School Management System</h3>
-              <p class="text-sub text-sm mt-2 leading-relaxed flex-1">A complete, offline-capable system to manage students, staff, classes, grades and records — built for schools.</p>
-              <a href="https://ybmlh.github.io/Completed-Offline-school-management-system/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium mt-4 hover:text-brand transition-colors">
-                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-                View live demo
-              </a>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="glass-strong card-hover rounded-3xl overflow-hidden reveal shadow-card hover:shadow-lift flex flex-col">
-            <div class="h-40 bg-gradient-to-br from-brand to-brandLight grid place-items-center">
-              <svg viewBox="0 0 24 24" class="w-14 h-14 text-white/90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>
-            </div>
-            <div class="p-6 flex flex-col flex-1">
-              <span class="inline-flex w-fit text-xs font-medium text-brand bg-brand/10 px-2.5 py-1 rounded-full">NFC Cards &amp; Analytics</span>
-              <h3 class="font-semibold text-lg mt-3 tracking-tight">EC EuroCampus</h3>
-              <p class="text-sub text-sm mt-2 leading-relaxed flex-1">Per-employee NFC cards with a built-in review system, plus a company-wide dashboard and analytics.</p>
-              <a href="https://ybmlh.github.io/EC-EuroCampus/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium mt-4 hover:text-brand transition-colors">
-                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-                View live demo
-              </a>
-            </div>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="glass-strong card-hover rounded-3xl overflow-hidden reveal shadow-card hover:shadow-lift flex flex-col">
-            <div class="h-40 bg-gradient-to-br from-rose-500 to-amber-400 grid place-items-center">
-              <svg viewBox="0 0 24 24" class="w-14 h-14 text-white/90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 15h2m-2 0v4m10-4h-4"/></svg>
-            </div>
-            <div class="p-6 flex flex-col flex-1">
-              <span class="inline-flex w-fit text-xs font-medium text-brand bg-brand/10 px-2.5 py-1 rounded-full">Restaurant Website</span>
-              <h3 class="font-semibold text-lg mt-3 tracking-tight">Planète Sushi</h3>
-              <p class="text-sub text-sm mt-2 leading-relaxed flex-1">A custom-designed sushi restaurant website with a full photo menu and all contact information.</p>
-              <a href="https://ybmlh.github.io/planete-sushi/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium mt-4 hover:text-brand transition-colors">
-                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-                View live demo
-              </a>
-            </div>
-          </article>
-        </div>
-
         <!-- EC EuroCampus showcase -->
-        <div class="mt-5 rounded-[28px] p-6 sm:p-8 bg-gradient-to-br from-teal-600 to-cyan-500 reveal shadow-card">
+        <div class="mt-14 space-y-5">
+        <div class="rounded-[28px] p-6 sm:p-8 bg-gradient-to-br from-teal-600 to-cyan-500 reveal shadow-card">
           <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
               <span class="inline-flex text-xs font-medium text-white bg-white/20 px-2.5 py-1 rounded-full">Case study</span>
@@ -459,19 +412,19 @@
           </div>
 
           <div class="mt-6 flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/euro-campus/card.png" alt="EC EuroCampus NFC bio card for an employee with call, email, WhatsApp and LinkedIn buttons" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/euro-campus/repertoire.png" alt="EC EuroCampus internal repertoire showing 15 active NFC cards" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/euro-campus/stats.png" alt="EC EuroCampus review analytics dashboard with average rating and reviews per employee" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/euro-campus/reviews.png" alt="Customer reviews for an EC EuroCampus employee" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/euro-campus/contact.png" alt="EC EuroCampus contact page with social links and a leave-a-review button" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
           </div>
@@ -493,16 +446,16 @@
           </div>
 
           <div class="mt-6 flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/planete-sushi/home.png" alt="Planète Sushi homepage with logo and a Discover the menu button" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/planete-sushi/menu.png" alt="Planète Sushi Nigiri menu with photos and prices" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/planete-sushi/mixbox.png" alt="Planète Sushi Mix Box specials with photos and prices" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/planete-sushi/contact.png" alt="Planète Sushi contact page with phone numbers, social links and address" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
           </div>
@@ -524,23 +477,24 @@
           </div>
 
           <div class="mt-6 flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/school-system/dashboard.png" alt="School management dashboard showing students, classes, teachers and unpaid counts" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/school-system/menu.png" alt="School management navigation menu with students, classes, schedule, grades, payments and revenue" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/school-system/schedule.png" alt="Weekly class schedule with classrooms and times" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/school-system/revenue.png" alt="Revenue page showing fees collected, salaries paid, expenses and net total" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
-            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden">
+            <figure class="snap-start shrink-0 w-40 sm:w-44 rounded-[1.8rem] border-[6px] border-ink bg-ink shadow-lift overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
               <img src="assets/school-system/dashboard-dark.png" alt="School management dashboard in dark mode" loading="lazy" class="w-full aspect-[9/19.5] object-cover object-top block" />
             </figure>
           </div>
           <p class="text-white/60 text-xs mt-3">Swipe to explore →</p>
+        </div>
         </div>
       </div>
     </section>
@@ -634,7 +588,7 @@
               <li class="flex gap-2"><span class="text-brandLight">✓</span> 5 NFC bio cards included</li>
               <li class="flex gap-2"><span class="text-brandLight">✓</span> Priority support</li>
             </ul>
-            <a href="#contact" class="mt-7 inline-flex justify-center bg-brand hover:bg-[#166534] text-white rounded-full py-3 font-medium transition-colors cursor-pointer">Get started</a>
+            <a href="#contact" class="mt-7 inline-flex justify-center bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-violet-500/30 text-white rounded-full py-3 font-medium transition-colors cursor-pointer">Get started</a>
           </div>
 
           <div class="glass-strong card-hover rounded-3xl p-8 reveal flex flex-col shadow-card hover:shadow-lift">
@@ -685,7 +639,7 @@
             <textarea id="message" name="message" rows="4" class="w-full rounded-2xl bg-white border border-black/10 px-4 py-3 text-sm placeholder-sub/60 focus:border-brand outline-none transition-colors resize-none" placeholder="Tell us about your business..."></textarea>
           </div>
           <div class="sm:col-span-2 flex flex-col sm:flex-row items-center gap-4">
-            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand hover:bg-[#166534] text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer">
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-violet-500/30 text-white font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer">
               Send request
               <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
             </button>
